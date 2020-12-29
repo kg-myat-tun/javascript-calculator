@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&amp;family=Lobster&amp;display=swap" rel="stylesheet">
+    <title>Javascript Calculator</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            
+            font-family: Arial, Helvetica, sans-serif;
+            background-color:rgb(2, 2, 36);
+           
+        }
+        .calc{
+            width: 330px;
+            margin: 100px auto;
+        }
+        .display-box{
+            background-color: #efecec;
+            margin: 5px ;
+            padding: 10px;
+            color: #000000;
+            border: 1px solid #5c5757;
+            border-radius: 20px;
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .keypad{
+            width: 330px;
+            
+        }
+
+        .keypad-table tr:first-child .key{
+            background-color:#00ff90;
+        }
+        .keypad-table td:last-child .key{
+            background-color:#44d9e6;
+        }
+        .keypad-table tr:first-child .key:active{
+            background-color: #00ff9090;
+        }
+        .keypad-table td:last-child .key:active{
+            background-color:#44d9e690;
+        }
+        .key{
+            width: 70px;
+            height: 70px;
+            margin: 5px;
+            border: 1px solid #5c5757;
+            border-radius: 70px;
+            text-align: center;
+            line-height: 70px;
+            background-color:white;
+            color: #363434;
+            font-size: 20px;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .key:active{
+            background-color: #efecec99;
+        }
+
+
+        .presented{
+            display: inline-block;
+            color: aliceblue;
+            margin-left: 75%;
+            font-family: 'Caveat', cursive;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+   
+    <div class="calc">
+        <div class="display-box">
+            <span style="padding-right: 10px; font-size: 20px;"  class="display-box-text">0</span>
+        </div>
+        <div class="keypad">
+            <table class="keypad-table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="key" onclick="clearAll()">AC</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="clearLast()">C</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay('%')">&percnt;</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay('/')">&divide;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="key" onclick="showDisplay(7)">7</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay(8)">8</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay(9)">9</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay('*')">&times;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="key" onclick="showDisplay(4)">4</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay(5)">5</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay(6)">6</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay('-')">&minus;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="key" onclick="showDisplay(1)">1</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay(2)">2</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay(3)">3</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay('+')">&plus;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" >
+                            <div class="key" onclick="showDisplay(0)" style="width: 150px;">0</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="showDisplay('.')">.</div>
+                        </td>
+                        <td>
+                            <div class="key" onclick="calculate()">&equals;</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="presented">
+        <p>
+            Presented By <br>Kaung Myat Tun
+        </p>
+    </div>
+
+    <script>
+        let displayBox=document.querySelector(".display-box-text");
+        let operator=['+','-','*','/','%','.'];
+
+        function showDisplay(x){
+            let current=displayBox.innerHTML;
+            let lastIndex=current[current.length-1];
+            
+            if (displayBox.innerHTML==0){
+               return displayBox.innerHTML=x;
+
+            }else if(operator.includes(x) && operator.includes(lastIndex) ){
+                return  displayBox.innerHTML= current.substring(0,current.length-1)+x;
+            }
+            else{
+                displayBox.innerHTML += x;
+            }
+        }
+
+        function calculate(){
+            let calculatetext=displayBox.innerHTML;
+            displayBox.innerHTML =eval(calculatetext);
+        }
+
+        function clearAll(){      
+            displayBox.innerHTML=0;
+        }
+
+        function clearLast(){
+            let current=displayBox.innerHTML;
+
+            if (current.length==1){
+                displayBox.innerHTML=0;
+            }else{
+                displayBox.innerHTML= current.substring(0,current.length-1);
+            }
+        }
+
+    </script>
+</body>
+</html>
